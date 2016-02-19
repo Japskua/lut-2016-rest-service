@@ -8,19 +8,10 @@ var router = express.Router();
 var _ = require('lodash');
 var request = require('superagent');
 
-var httpOptions = {
-    hostname : "localhost",
-    port : "3000",
-    path : "/api/jobs",
-    agent : false
-};
-
-
 /* GET query for jobs. */
 router.get('/jobs', function(req, res, next) {
     // Get the query
     var fieldQuery = req.query.field;
-
 
     request
         .get("localhost:3000/api/jobs")
@@ -33,47 +24,68 @@ router.get('/jobs', function(req, res, next) {
                 // Filter the jobs
                 var filteredJobs = _.filter(allJobs, { "field" : fieldQuery});
 
-                res.json({ results : filteredJobs});
+                res.json({ filteredJobs : filteredJobs});
             }
         });
-
-    /*
-
-    http.get(httpOptions, function(results) {
-        console.log(results);
-
-        res.json({ query : fieldQuery});
-    });*/
-
-    // Now, get all the JOBS from the JOBS API
-
-    /*
-    // Just get the list of title, field
-    var listAll = [];
-    _.forEach(jobs, function(job) {
-        listAll.push({
-            id : job.id,
-            title : job.title,
-            field : job.field
-        });
-    });
-    res.json(listAll);*/
 });
 
-/* GET the job in question */
-router.get('/:jobId', function(req, res, next) {
-    var jobId = req.params.jobId;
-    if(!jobId) {
-        res.status(500).send({error : "Missing jobId ID!"});
-        return;
-    }
+/* GET the student with search in question */
+router.get('/students', function(req, res, next) {
+    // Get the query
+    var major = req.query.major;
+    var year = req.query.year;
+    var lookingFor = decodeURI(req.query.lookingFor);
 
-    var matchedJob = _.find(jobs, { "id" : jobId});
-    if(!matchedJob) {
-        res.status(500).send({error : "No matching job found with the given id: " + jobId});
-    } else {
-        res.json(matchedJob);
-    }
+    console.log("lookingFor is:", lookingFor);
+
+    request
+        .get("localhost:3000/api/students")
+        .end(function(err, results) {
+            if(err) {
+                throw err;
+            } else {
+                var students = results.body;
+
+                // Filter the jobs
+                if(!_.isEmpty(major)) {
+                    students = _.filter(students, { "major" : major});
+                }
+                if(!_.isEmpty(year)) {
+                    students = _.filter(students, { "year" : year});
+                }
+                if(!_.isEmpty(year)) {
+                    students = _.filter(students, function(student) {
+                        return _.includes(student.lookingFor, lookingFor);
+                    });
+                }
+
+                res.json({ filteredStudents : students});
+            }
+        });
+});
+
+
+/* GET the company with search in question */
+router.get('/companies', function(req, res, next) {
+    // Get the query
+    var business = req.query.business;
+
+    request
+        .get("localhost:3000/api/companies")
+        .end(function(err, results) {
+            if(err) {
+                throw err;
+            } else {
+                var companies = results.body;
+
+                // Filter the jobs
+                if(!_.isEmpty(business)) {
+                    companies = _.filter(companies, { "business" : business});
+                }
+
+                res.json({ filteredCompanies : companies});
+            }
+        });
 });
 
 module.exports = router;

@@ -12,7 +12,7 @@ var students = [
         id : "1",
         name : "Jack Brown",
         major : "CS",
-        year : 2,
+        year : "2",
         lookingFor : ["summer job"],
         contactDetails : {
             email : "jack@lut.fi",
@@ -23,7 +23,7 @@ var students = [
         id : "2",
         name : "Michael Smith",
         major : "CS",
-        year : 4,
+        year : "4",
         lookingFor : ["summer job", "master thesis", "small jobs"],
         contactDetails : {
             email : "michael.smith@fakemail.fi",
@@ -34,7 +34,7 @@ var students = [
         id : "2",
         name : "Mr Summers",
         major : "IT",
-        year : 5,
+        year : "5",
         lookingFor : ["master thesis"],
         contactDetails : {
             email : "summers@happy.com",
@@ -53,8 +53,9 @@ router.get('/', function(req, res, next) {
             id : student.id,
             name : student.name,
             major : student.major,
-            lookingFor : student.lookingFor
-        })   ;
+            lookingFor : student.lookingFor,
+            year : student.year
+        });
     });
     res.json(listAll);
 });
