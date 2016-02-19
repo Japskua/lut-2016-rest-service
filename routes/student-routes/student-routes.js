@@ -1,9 +1,6 @@
 /**
  * Created by parkkila on 19.2.2016.
  */
-/**
- * Created by parkkila on 19.2.2016.
- */
 "use strict";
 
 var express = require('express');
@@ -47,7 +44,7 @@ var students = [
 ];
 
 
-/* GET companies listing. */
+/* GET students listing. */
 router.get('/', function(req, res, next) {
     // Just get the list of name, major, year
     var listAll = [];
@@ -62,7 +59,7 @@ router.get('/', function(req, res, next) {
     res.json(listAll);
 });
 
-/* GET the company in question */
+/* GET the student in question */
 router.get('/:studentId', function(req, res, next) {
     var studentId = req.params.studentId;
     if(!studentId) {
