@@ -12,7 +12,9 @@ var users = require('./routes/users');
 var companies = require('./routes/company-routes/company-routes');
 var students = require('./routes/student-routes/student-routes');
 var jobs = require('./routes/jobs-routes/jobs-routes');
+var applications = require('./routes/application-routes/applications-routes');
 var search = require('./routes/search-service/search-routes');
+var matching = require('./routes/matching-routes/matching-service');
 
 var app = express();
 
@@ -35,7 +37,9 @@ app.use('/users', users);
 app.use('/api/companies', companies);
 app.use('/api/students', students);
 app.use('/api/jobs', jobs);
+app.use('/api/applications', applications);
 app.use('/api/search', search);
+app.use('/api/match', matching);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
