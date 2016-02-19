@@ -8,6 +8,11 @@ var router = express.Router();
 var _ = require('lodash');
 var request = require('superagent');
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('search', { title: 'Search API main page' });
+});
+
 /* GET query for jobs. */
 router.get('/jobs', function(req, res, next) {
     // Get the query

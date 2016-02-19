@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <h2>This is the service description for searching page</h2>
+    <p>We have the following search services currently available:</p>
+    <li>
+        <h3>Jobs: /api/search/jobs</h3>
+        <p>You can use the following search queries</p>
+        <ul> ?field={field of the job in question}</ul>
+        <ul> Example: <a href="/api/search/jobs?field=IT">/api/search/jobs?field=IT</a> </ul>
+    </li>
+    <li>
+        <h3>Companies: /api/search/companies</h3>
+        <ul> ?business={field of business where the company operates in}</ul>
+        <ul> Example: <a href="/api/search/companies?business=IT">api/search/companies?business=IT</a> </ul>
+
+    </li>
+    <li>
+        <h3>Jobs: /api/search/students</h3>
+        <ul> ?major={study major}</ul>
+        <ul> ?year={study year}</ul>
+        <ul> ?lookingFor={what kind of job the student is looking for. E.g. summer job}</ul>
+        <ul> Example: <a href="/api/search/students?major=IT">/api/search/students?major=IT</a> </ul>
+
+    </li>
+</body>
+</html>
